@@ -16,14 +16,25 @@ constructor (props){
     {name: 'song 2', artist: 'artiste 2', album: 'album 2', id: 'id 2'},
     {name: 'song 3', artist: 'artist 3', album: 'album 3', id: 'id 3'}
   ], 
-    playlistName: 'Zoés playlist', 
-    playlistTracks: [
-      {name: 'songa', artist: 'artiste 1', album: 'album 1', id: '1'}, 
-      {name: 'song 2', artist: 'artiste 2', album: 'album 2', id: 'id 2'},
-      {name: 'song 3', artist: 'artist 3', album: 'album 3', id: 'id 3'}
+    playlistName: 'playlist 1', 
+    playlistTracks: [ 
+    {name: 'Playlist song 1', artist: 'artiste 1', album: 'album 1', id: 'a'}, 
+    {name: 'Playlist song 2', artist: 'artiste 2', album: 'album 2', id: 'ab'},
+    {name: 'Playlist song 3', artist: 'artiste 3', album: 'album 3', id: 'abc'}
     ]
-
+  
 }
+this.addTrack= this.addTrack.bind(this)
+}
+
+addTrack (track){
+let tracks = this.state.playlistTracks; 
+if (track.id === tracks.find(savedTrack => savedTrack.id)){
+   return; 
+}
+
+tracks.push(track);
+this.setState({ playlistTracks: tracks })
 }
     render(){
   return (
@@ -34,7 +45,7 @@ constructor (props){
      < SearchBar />
 
       <div className="App-playlist">
-       <SearchResults searchResults={this.state.searchResults} />
+       <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
 
        <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
       </div>
