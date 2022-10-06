@@ -15,7 +15,14 @@ constructor (props){
     {name: 'This is your song', artist: 'Elton John', album: 'Elton', id: '1'}, 
     {name: 'song 2', artist: 'artiste 2', album: 'album 2', id: 'id 2'},
     {name: 'song 3', artist: 'artist 3', album: 'album 3', id: 'id 3'}
-  ]
+  ], 
+    playlistName: 'Zoés playlist', 
+    playlistTracks: [
+      {name: 'songa', artist: 'artiste 1', album: 'album 1', id: '1'}, 
+      {name: 'song 2', artist: 'artiste 2', album: 'album 2', id: 'id 2'},
+      {name: 'song 3', artist: 'artist 3', album: 'album 3', id: 'id 3'}
+    ]
+
 }
 }
     render(){
@@ -29,7 +36,7 @@ constructor (props){
       <div className="App-playlist">
        <SearchResults searchResults={this.state.searchResults} />
 
-       <Playlist />
+       <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
       </div>
     </div>
   </div>)
