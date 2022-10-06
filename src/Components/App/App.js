@@ -24,7 +24,8 @@ constructor (props){
     ]
   
 }
-this.addTrack= this.addTrack.bind(this)
+this.addTrack= this.addTrack.bind(this); 
+this.removeTrack= this.removeTrack.bind(this)
 }
 
 addTrack (track){
@@ -35,6 +36,13 @@ if (track.id === tracks.find(savedTrack => savedTrack.id)){
 
 tracks.push(track);
 this.setState({ playlistTracks: tracks })
+}
+
+removeTrack (track){
+  let tracks = this.state.playlistTracks; 
+  tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+  this.setState({ playlistTracks: tracks })
 }
     render(){
   return (
@@ -47,7 +55,7 @@ this.setState({ playlistTracks: tracks })
       <div className="App-playlist">
        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
 
-       <Playlist playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+       <Playlist onRemove={this.removeTrack} playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
       </div>
     </div>
   </div>)
