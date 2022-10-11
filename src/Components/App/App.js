@@ -27,6 +27,7 @@ constructor (props){
 this.addTrack= this.addTrack.bind(this); 
 this.removeTrack= this.removeTrack.bind(this)
 this.updatePlaylistName= this.updatePlaylistName.bind(this)
+this.savePlaylist= this.savePlaylist.bind(this)
 }
 updatePlaylistName(name){
   this.setState({ playlistName: name})
@@ -47,6 +48,11 @@ removeTrack (track){
 
   this.setState({ playlistTracks: tracks })
 }
+
+savePlaylist (){
+const tackURIs= this.state.playlistTracks.map(track => track.uri)
+
+}
     render(){
   return (
 <div>
@@ -58,7 +64,11 @@ removeTrack (track){
       <div className="App-playlist">
        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
 
-       <Playlist onNameChange={this.updatePlaylistName} onRemove={this.removeTrack} playlist={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
+       <Playlist onNameChange={this.updatePlaylistName}
+                 onRemove={this.removeTrack} 
+                 playlist={this.state.playlistName} 
+                 playlistTracks={this.state.playlistTracks}
+                 onSave={this.savePlaylist}/>
       </div>
     </div>
   </div>)
