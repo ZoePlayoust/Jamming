@@ -11,17 +11,9 @@ export class App extends React.Component{
 constructor (props){
   super(props); 
   this.state = {
-    searchResults: [
-    {name: 'This is your song', artist: 'Elton John', album: 'Elton', id: '1'}, 
-    {name: 'song 2', artist: 'artiste 2', album: 'album 2', id: 'id 2'},
-    {name: 'song 3', artist: 'artist 3', album: 'album 3', id: 'id 3'}
-  ], 
+    searchResults: [], 
     playlistName: 'playlist 1', 
-    playlistTracks: [ 
-    {name: 'Playlist song 1', artist: 'artiste 1', album: 'album 1', id: 'a'}, 
-    {name: 'Playlist song 2', artist: 'artiste 2', album: 'album 2', id: 'ab'},
-    {name: 'Playlist song 3', artist: 'artiste 3', album: 'album 3', id: 'abc'}
-    ]
+    playlistTracks: []
   
 }
 this.addTrack= this.addTrack.bind(this); 
@@ -52,14 +44,19 @@ removeTrack (track){
 }
 
 savePlaylist (){
-  alert("this method is properly linked to the button")
-const tackURIs= this.state.playlistTracks.map(track => track.uri);
+const trackUris= this.state.playlistTracks.map(track => track.uri);
+Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
+  this.setState ({
+    playlistName: 'New Playlist',
+    playlistTracks: []
+  })
+} )
 }
 
 search (term){
 Spotify.search(term).then(searchResults =>{
-  this.setState({searchResults: searchResults})
-} )
+  this.setState({ searchResults: searchResults })
+})
 }
     render(){
   return ( 
@@ -70,7 +67,8 @@ Spotify.search(term).then(searchResults =>{
      < SearchBar onSearch={this.search}/>
 
       <div className="App-playlist">
-       <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+       <SearchResults searchResults={this.state.searchResults} 
+                      onAdd={this.addTrack}/>
 
        <Playlist onNameChange={this.updatePlaylistName}
                  onRemove={this.removeTrack} 
