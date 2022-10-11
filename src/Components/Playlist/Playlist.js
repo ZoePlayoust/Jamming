@@ -20,8 +20,12 @@ render (){
 return(
 <div className="Playlist">
   <input defaultValue="New Playlist" onChange={this.handleNameChange}/>
-    <Tracklist isRemoval={true} onRemove={this.props.onRemove} onAdd={this.props.onAdd} tracks={this.props.playlistTracks}/>
-  <button className="Playlist-save">SAVE TO SPOTIFY</button>
+    <Tracklist isRemoval={true}
+               onRemove={this.props.onRemove} 
+               onAdd={this.props.onAdd} 
+               tracks={this.props.playlistTracks}/>
+  <button onClick={this.props.onSave} 
+          className="Playlist-save">SAVE TO SPOTIFY</button>
 </div>
 )
     }
